@@ -1,0 +1,11 @@
+
+.vscode/
+.idea/
+
+local/
+
+.DS_Store
+
+bin/
+_output/
+.env
