@@ -1,3 +1,6 @@
+import os
+
+from keyring.core import load_env
 from langchain.chat_models import init_chat_model
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langchain_core.output_parsers import StrOutputParser
@@ -10,11 +13,13 @@ prompt = ChatPromptTemplate.from_messages([
     MessagesPlaceholder(variable_name="messages"),
 ])
 
+load_env()
+
 model = init_chat_model(
     model="Qwen/Qwen3-8B",
     model_provider="openai",
     base_url="https://api.siliconflow.cn/v1/",
-    api_key="sk-lzcunbanmnmklpxtfehbnmupbgytyqgujjulndjtvhzjhqdq",
+    api_key=os.getenv("API_KEY"),
 )
 
 chain = prompt | model | StrOutputParser()
@@ -30,10 +35,13 @@ while True:
         break
     messages_list.append(HumanMessage(content=user_query))
 
-    response = chain.invoke({"messages": messages_list})
+    # 流式输出
+    assistant_reply = ""
+    for chunk in chain.stream({"messages": messages_list}):
+        assistant_reply+=chunk
+        print(chunk, end="", flush=True)
+    print()  # 换行
 
-    print("苍老师: ", response)
-
-    messages_list.append(AIMessage(content=response))
+    messages_list.append(AIMessage(content=assistant_reply))
 
     messages_list = messages_list[-50:]
