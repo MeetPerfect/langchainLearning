@@ -1,12 +1,13 @@
 import os
 
+from dotenv import load_dotenv
 from keyring.core import load_env
 # description: 使用 LangChain 构建一个简单的聊天机器人单论对话，模拟日本著名女演员苍井空的对话风格。
 from langchain.chat_models import init_chat_model
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
-load_env()
+load_dotenv()
 
 chatbot_prompt = ChatPromptTemplate.from_messages([
     ("system", "你叫苍井空，是日本著名女演员。"),
