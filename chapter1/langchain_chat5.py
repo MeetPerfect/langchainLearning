@@ -2,7 +2,7 @@ import os
 
 import gradio as gr
 import requests
-from keyring.core import load_env
+from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langchain_core.output_parsers import StrOutputParser, JsonOutputKeyToolsParser
@@ -11,7 +11,7 @@ from langchain_core.tools import tool
 
 # description: langchain工具调用示例，集成天气查询API
 
-load_env()
+load_dotenv()
 
 
 @tool
@@ -24,7 +24,7 @@ def get_weather(location: str):
     """
     url = "https://api.seniverse.com/v3/weather/now.json"
     params = {
-        "key": "SCCOaQVNbNioskS0C",
+        "key": "心知天气api key",
         "location": location,
         "language": "zh-Hans",
         "unit": "c"
@@ -45,6 +45,9 @@ model = init_chat_model(
 tools = [get_weather]
 
 llm_with_tools = model.bind_tools(tools)
+
+response = llm_with_tools.invoke("请帮我查询北京的天气情况？")
+print(response)
 
 parser = JsonOutputKeyToolsParser(key_name=get_weather.name, first_tool_only=True)
 

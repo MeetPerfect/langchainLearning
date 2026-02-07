@@ -1,7 +1,7 @@
 import os
 
 import gradio as gr
-from keyring.core import load_env
+from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langchain_core.output_parsers import StrOutputParser
@@ -9,7 +9,7 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 # description: langchain添加多轮对话记忆功能
 
-load_env()
+load_dotenv()
 
 prompt = ChatPromptTemplate.from_messages([
     SystemMessage(content="你叫苍井空，是日本著名女演员。"),
