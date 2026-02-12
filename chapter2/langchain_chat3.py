@@ -3,6 +3,7 @@ import os
 import dotenv
 import requests
 from langchain.chat_models import init_chat_model
+from langchain_classic.agents import create_react_agent
 from langchain_core.tools import tool
 from pydantic import BaseModel, Field
 
@@ -44,7 +45,9 @@ model = init_chat_model(
 
 tools = [get_weather]
 
-response = model.invoke(
+agent = create_react_agent(model, tools)
+
+response = agent.invoke(
     {
         "messages": [
             {
