@@ -14,7 +14,7 @@ def init_llm():
     return init_chat_model(
         model="Qwen/Qwen3-8B",
         model_provider="openai",
-        base_url="https://openai.io",
+        base_url="https://api.siliconflow.cn/v1/",
         api_key=os.getenv("API_KEY"),
     )
 
