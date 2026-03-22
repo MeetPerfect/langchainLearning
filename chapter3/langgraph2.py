@@ -3,7 +3,7 @@
 # @Time    : 2026/3/22 12:57
 # @Author  : myymgkm
 # @File    : langgraph2.py
-# @Description:
+# @Description: Langgraph的路由模式
 import os
 from typing import TypedDict, Literal
 
