@@ -100,6 +100,6 @@ workflow.add_edge("aggregator", END)
 
 graph = workflow.compile()
 
-result = graph.invoke({"topic": "关于新有菜的"})
+result = graph.invoke({"role": "user", "topic": "pgone 与 李小璐"})
 
 print(result['combined_output'])
